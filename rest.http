@@ -1,0 +1,33 @@
+GET http://localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTcyNjEwNjUsImV4cCI6MTY5NzI2MTA4MCwiYXVkIjoiNjUyOThhYTg3N2RmY2Q0Mzg2ZjFjYTZhIiwiaXNzIjoic2hhbi5jb20ifQ.o8mLvGLhaPrBy3dILMjL9RBnEkWx194CBnw2f155O6s
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "kumari@gmail.com",
+    "password": "1234"
+}
+
+
+### Register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "kumari@gmail.com",
+    "password": "1234"
+}
+
+
+###
+POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTcyNjE1MzYsImV4cCI6MTcwMjQ0NTUzNiwiYXVkIjoiNjUyOThhYTg3N2RmY2Q0Mzg2ZjFjYTZhIiwiaXNzIjoic2hhbi5jb20ifQ.fyXefBUonoqygb6ECWwagPPrPvIBKehfi_h-tQoNYJs" 
+}
+
+###
+DELETE http://localhost:3000/auth/logout
