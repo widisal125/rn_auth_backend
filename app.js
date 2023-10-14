@@ -16,6 +16,10 @@ app.get('/', verifyAccessToken, async (req, res, next) => {
     res.send('Hello')
 })
 
+app.get('/test', async (req, res, next) => {
+    res.send('Hello')
+})
+
 app.use('/auth', AuthRoute)
 
 
