@@ -4,19 +4,28 @@ const router = express.Router()
 const User = require('../models/User.model')
 const { authSchema } = require('../helpers/validation_schema')
 const { signAccessToken, signRefreshToken, verifyRefreshToken } = require('../helpers/jwt_helper')
+const pool = require('../helpers/init_db');
+const { getPasswordHash, checkPassword } = require('../helpers/password_helper')
+const crypto = require('crypto')
 
 router.post('/register', async (req, res, next) => {
     try {
         const result = await authSchema.validateAsync(req.body)
 
-        const doesExist = await User.findOne({ email: result.email })
-        if (doesExist) throw createError.Conflict(`${result.email} is already registered`)
+        const query = await pool.query("SELECT * FROM users WHERE email = $1", [result.email])
+        const doesExist = (query.rowCount !== 0)
 
-        const user = new User(result)
-        const savedUser = await user.save()
+        const hashedPassword = await getPasswordHash(result.password)
 
-        const accessToken = await signAccessToken(savedUser.id)
-        const refreshToken = await signRefreshToken(user.id)
+        if (doesExist) throw createError.Conflict(`${result.email} is already registered`)       
+
+        const user = await pool.query("INSERT INTO users (user_id, email, password) VALUES ($1, $2, $3) RETURNING *", 
+            [crypto.randomUUID(), result.email, hashedPassword])
+
+        const { email, password } = user.rows[0]
+
+        const accessToken = await signAccessToken(email)
+        const refreshToken = await signRefreshToken(password)
         res.send({accessToken, refreshToken})
 
     } catch (error) {
@@ -29,14 +38,18 @@ router.post('/login', async (req, res, next) => {
     try {
         const result = await authSchema.validateAsync(req.body)
         
-        const user = await User.findOne({ email: result.email })
-        if (!user) throw createError.NotFound(`User not registered`)
+        const query = await pool.query("SELECT * FROM users WHERE email = $1", [result.email])
+        const doesExist = (query.rowCount !== 0)
 
-        const isMatch = await user.isValidPassword(result.password)
+        if (!doesExist) throw createError.NotFound(`User not registered`)
+
+        const { user_id, password } = query.rows[0]
+
+        const isMatch = await checkPassword(result.password, password)
         if (!isMatch) throw createError.Unauthorized('Invalid username or password')
 
-        const accessToken = await signAccessToken(user.id)
-        const refreshToken = await signRefreshToken(user.id)
+        const accessToken = await signAccessToken(user_id)
+        const refreshToken = await signRefreshToken(user_id)
         res.send({accessToken, refreshToken })
     } catch (error) {
         if (error.isJoi === true) {
