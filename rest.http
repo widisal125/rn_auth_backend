@@ -1,8 +1,11 @@
 GET http://localhost:3000
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTcyNjEwNjUsImV4cCI6MTY5NzI2MTA4MCwiYXVkIjoiNjUyOThhYTg3N2RmY2Q0Mzg2ZjFjYTZhIiwiaXNzIjoic2hhbi5jb20ifQ.o8mLvGLhaPrBy3dILMjL9RBnEkWx194CBnw2f155O6s
 
+### DB
+GET https://rn-auth-backend.onrender.com/db
+
 ### Login
-POST http://localhost:3000/auth/login
+POST https://rn-auth-backend.onrender.com/auth/login
 Content-Type: application/json
 
 {

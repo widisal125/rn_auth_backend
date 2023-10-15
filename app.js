@@ -4,7 +4,7 @@ const createError = require('http-errors')
 require('dotenv').config()
 require('./helpers/init_mongodb')
 const { verifyAccessToken } = require('./helpers/jwt_helper')
-
+const pool = require('./helpers/init_db')
 const AuthRoute = require('./routes/Auth.route')
 
 const app = express()
@@ -17,6 +17,12 @@ app.get('/', verifyAccessToken, async (req, res, next) => {
 })
 
 app.get('/test', async (req, res, next) => {
+    res.send('Hello')
+})
+
+app.get('/db', async (req, res, next) => {
+    const dbinit = await pool.query("CREATE TABLE IF NOT EXISTS users(user_id varchar(255) primary key, email varchar(255), password varchar(255))")
+    console.log(dbinit)
     res.send('Hello')
 })
 
