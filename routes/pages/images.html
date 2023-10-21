@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><a href="http://localhost:3000/images">Upload Image</a></li>
+        <li><a href="http://localhost:3000/destinations/create">Create Destination</a></li>
+        <li><a href="http://localhost:3000/destinations/update">Update Destination</a></li>
+    </ul>
+
+    <hr />
+
+    <h3>Upload image</h3>
+    <hr/>
+    <div>
+        <form action="http://localhost:3000/images" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" value="Upload" />
+        </form>
+    </div>
+</body>
+</html>

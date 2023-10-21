@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="http://localhost:3000/images">Upload Image</a></li>
+        <li><a href="http://localhost:3000/destinations/create">Create Destination</a></li>
+        <li><a href="http://localhost:3000/destinations/update">Update Destination</a></li>
+    </ul>
+
+    <hr />
+
+    <h3>Create Destination</h3>
+    <hr />
+    <div>
+        <form action="http://localhost:3000/destinations/create" method="post">
+            <table border="0">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name" /></td>
+                </tr>
+                <tr>
+                    <td>Category Text</td>
+                    <td><input type="text" name="category_text" /></td>
+                </tr>                
+                <tr>
+                    <td>Rating</td>
+                    <td><input type="text" name="rating" /></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td><input type="text" name="price" /></td>
+                </tr>
+                <tr>
+                    <td>Image</td>
+                    <td><input type="text" name="main_image_url" style="width: 700px" /></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><textarea name="description" rows="5" cols="100"></textarea></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Create" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

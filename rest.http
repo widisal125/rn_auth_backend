@@ -13,13 +13,22 @@ Content-Type: application/json
     "password": "1234"
 }
 
-
-### Register
-POST http://localhost:3000/auth/register
+### Login Local
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "amal@gmail.com",
+    "email": "shan@gmail.com",
+    "password": "1234"
+}
+
+
+### Register
+POST https://rn-auth-backend.onrender.com/auth/register
+Content-Type: application/json
+
+{
+    "email": "shan@gmail.com",
     "password": "1234"
 }
 
@@ -34,3 +43,11 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/auth/logout
+
+
+### Get all destinations
+GET http://localhost:3000/destinations
+
+
+### Get destination by id
+GET http://localhost:3000/destinations/94fa2844-0d57-4f6a-aa58-db8de8e40f5e
