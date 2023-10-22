@@ -13,7 +13,15 @@ router.post('/create', async (req, res, next) => {
         const destination = await pool.query("INSERT INTO destinations (dest_id, dest_name, dest_category_text, dest_description, dest_rating, dest_main_image_url, dest_price) VALUES ($1, $2, $3, $4, $5, $6, $7)",
             [crypto.randomUUID(), data.name, data.category_text, data.description, data.rating, data.main_image_url, data.price])
 
-            res.sendFile(__dirname + '/pages/links.html')
+        const html = '<ul>' +
+            '<li><a href="https://rn-auth-backend.onrender.com/images">Upload Image</a></li>' +
+            '<li><a href="https://rn-auth-backend.onrender.com/destinations/create">Create Destination</a></li>' +
+            '<li><a href="https://rn-auth-backend.onrender.com/destinations/update">Update Destination</a></li>' +
+            '</ul>' +
+            '<hr />' +
+            '<div>Created</div>'
+
+        res.send(html)
     } catch (error) {
         next(error)
     }
@@ -26,7 +34,15 @@ router.post('/update', async (req, res, next) => {
         const data = req.body
         const destination = await pool.query("INSERT INTO destination_images (image_url, dest_id) VALUES ($1, $2)", [data.image_url, data.dest_id])
 
-        res.sendFile(__dirname + '/pages/links.html')
+        const html = '<ul>' +
+            '<li><a href="https://rn-auth-backend.onrender.com/images">Upload Image</a></li>' +
+            '<li><a href="https://rn-auth-backend.onrender.com/destinations/create">Create Destination</a></li>' +
+            '<li><a href="https://rn-auth-backend.onrender.com/destinations/update">Update Destination</a></li>' +
+            '</ul>' +
+            '<hr />' +
+            '<div>Updated</div>'
+
+        res.send(html)
     } catch (error) {
         next(error)
     }
@@ -51,7 +67,7 @@ router.get('/', async (req, res, next) => {
                 ...d,
                 images: images.rows.map(img => img.image_url)
             }
-        }))        
+        }))
         res.send(data)
     } catch (error) {
         next(error)

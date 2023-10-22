@@ -24,8 +24,15 @@ router.post('/', async (req, res, next) => {
                     const imageUrl = req.getPublicUrl(filename)
                     await pool.query("INSERT INTO images (image_url, original_name) VALUES ($1, $2)", [imageUrl, file.name])
 
-                    const html = "<div>" + imageUrl + "</div><div>" + file.name + "</div>"
-                    res.sendFile(__dirname + '/pages/links.html')
+                    const html = '<ul>' +
+                        '<li><a href="https://rn-auth-backend.onrender.com/images">Upload Image</a></li>' +
+                        '<li><a href="https://rn-auth-backend.onrender.com/destinations/create">Create Destination</a></li>' +
+                        '<li><a href="https://rn-auth-backend.onrender.com/destinations/update">Update Destination</a></li>' +
+                        '</ul>' +
+                        '<hr />' +
+                        '<div>' + imageUrl + '</div><div>' + file.name + '</div>'
+
+                    res.send(html)
                 }
             })
         }
