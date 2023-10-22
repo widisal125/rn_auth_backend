@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
                     await pool.query("INSERT INTO images (image_url, original_name) VALUES ($1, $2)", [imageUrl, file.name])
 
                     const html = "<div>" + imageUrl + "</div><div>" + file.name + "</div>"
-                    res.send(html)
+                    res.sendFile(__dirname + './pages/links.html')
                 }
             })
         }
